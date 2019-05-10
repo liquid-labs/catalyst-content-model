@@ -48,12 +48,12 @@ func (c *ContributorSummary) ClearSummaryCreditOrder() {
 
 type ContentSummary struct {
   entities.Entity,
-  Title           nulls.String `json:"title"`,
-  Summary         nulls.String `json:"summary"`,
-  Namespace       nulls.String `json:"summary"`,
-  Slug            nulls.String `json:"slug"`,
-  Type            nulls.String `json:"type"`,
+  Title         nulls.String `json:"title"`,
+  Summary       nulls.String `json:"summary"`,
   ExternPath    nulls.String `json:"externPath"`,
+  Namespace     nulls.String `json:"summary"`,
+  Slug          nulls.String `json:"slug"`,
+  Type          nulls.String `json:"type"`,
   LastSync      nulls.Int64  `json:"lastSync"`,
   VersionCookie nulls.String `json:"versionCookie"`,
   // TODO: want to name this '(K/k)eyContributors' to be more precise, but that
