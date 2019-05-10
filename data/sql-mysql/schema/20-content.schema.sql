@@ -1,6 +1,7 @@
 CREATE TABLE content (
   `id` INT,
   `extern_path` VARCHAR(255),
+  `namespace` VARCHAR(24),
   `slug` VARCHAR(40),
   `type` ENUM('TEXT') NOT NULL,
   `title` VARCHAR(255) NOT NULL,
@@ -18,6 +19,10 @@ CREATE TRIGGER `content_slug_constraint`
       IF new.slug REGEXP '[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}'
         SIGNAL SQLSTATE '45000'
           SET MESSAGE_TEXT = 'Cannot use slug which may be confused with a UUID.';
+      END IF;
+      IF new.type != old.type
+        SIGNAL SQLSTATE '45000'
+          SET MESSAGE_TEXT = 'The content type cannot be changed.';
       END IF;
     END;//
 DELIMITER ;

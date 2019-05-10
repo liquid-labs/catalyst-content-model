@@ -10,17 +10,18 @@ const Contributor = class extends Model {
 }
 Model.finalizeConstructor(Contributor, contributorPropsModel)
 
-const contentTextTypePropsModel = [
-  'title',
-  'summary',
-  'format',
-  'text',
-  'slug',
-  'externPath',
-  'lastSync',
-  'version_cookie',
-].map((propName) => ({ propName, writable : true }))
-contributorPropsModel.push(...entityPropsModel)
+const contentTextTypePropsModel = [...entityPropsModel]
+contentTextTypePropsModel.push(...[
+    'title',
+    'summary',
+    'format',
+    'slug',
+    'externPath',
+    'lastSync',
+    'version_cookie',
+  ].map((propName) => ({ propName, writable : true })))
+contributorPropsModel.push({ propName : 'type', writeable : false })
+
 contentTextTypePropsModel.push([ 'keyContributors', 'contributors']
   .map((propName) => ({ propName, model: Contributor, valueType: arrayType, writable: true }))
 
