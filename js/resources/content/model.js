@@ -23,9 +23,16 @@ contentTextTypePropsModel.push(...[
 contributorPropsModel.push({ propName : 'type', writeable : false })
 
 contentTextTypePropsModel.push([ 'keyContributors', 'contributors']
-  .map((propName) => ({ propName, model: Contributor, valueType: arrayType, writable: true }))
+  .map((propName) => ({ propName, model: Contributor, valueType: arrayType, writable: true })))
 
 const ContentTypeText = class extends Model {
   get resourceName() { return 'content' }
 }
 Model.finalizeConstructor(ContentTypeText, contentTextTypePropsModel)
+
+export {
+  contributorPropsModel,
+  Contributor,
+  contentTextTypePropsModel,
+  ContentTypeText,
+}

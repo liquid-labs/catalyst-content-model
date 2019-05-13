@@ -1,0 +1,42 @@
+{
+  "name": "@liquid-labs/catalyst-content-model",
+  "version": "1.0.0-prototype.0",
+  "description": "Catalyst API for 'content' and related resources.",
+  "main": "dist/index.js",
+  "module": "./dist/index.es.js",
+  "files": [
+    "go/",
+    "data/",
+    "bin/",
+    "dist/",
+    "go.mod",
+    "go.sum",
+    ".catalyst"
+  ],
+  "scripts": {
+    "prebuild": "rm -rf ./dist/* && mkdir -p ./dist",
+    "build": "catalyst-scripts build",
+    "prepare": "npm run build",
+    "pretest": "TEST_TYPES=unit catalyst-scripts pretest",
+    "test": "TEST_TYPES=unit catalyst-scripts test",
+    "postversion": "git push && git push --tags",
+    "lint": "catalyst-scripts lint",
+    "lint-fix": "catalyst-scripts lint-fix",
+    "watch": "catalyst-scripts watch",
+    "postyalc": "chmod a+x ~/.yalc/packages/@liquid-labs/catalyst-core-api/*/bin/*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Liquid-Labs/catalyst-content-model.git"
+  },
+  "author": "Zane Rockenbaugh <zane@liquid-labs.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Liquid-Labs/catalyst-content-model/issues"
+  },
+  "homepage": "https://github.com/Liquid-Labs/catalyst-content-model#readme",
+  "devDependencies": {
+    "@liquid-labs/catalyst-core-api": "^1.0.0-prototype.11",
+    "@liquid-labs/catalyst-scripts": "^1.0.0-alpha.22"
+  }
+}
