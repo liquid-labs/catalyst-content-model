@@ -43,7 +43,7 @@ CREATE TABLE content_type_text (
 CREATE TRIGGER `content_type_text_last_sync_update`
   BEFORE UPDATE ON content FOR EACH ROW
     BEGIN
-      IF new.text != old.text
+      IF new.last_sync == 0
         SET new.last_sync=UNIX_TIMESTAMP();
       END IF;
     END;//
