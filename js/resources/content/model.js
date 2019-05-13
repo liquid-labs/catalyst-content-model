@@ -1,7 +1,7 @@
-import { entityPropsModel, Model } from '@liquid-labs/catalyst-core-api'
+import { arrayType, entityPropsModel, Model } from '@liquid-labs/catalyst-core-api'
 import { personPropsModel } from '@liquid-labs/catalyst-persons-api'
 
-const contributorPropsModel = [ 'role', 'summaryCreditOrder']
+const contributorPropsModel = [ 'role', 'summaryCreditOrder' ]
   .map((propName) => ({ propName, writable : true }))
 contributorPropsModel.push(...personPropsModel)
 
@@ -22,7 +22,7 @@ contentTextTypePropsModel.push(...[
 ].map((propName) => ({ propName, writable : true })))
 contributorPropsModel.push({ propName : 'type', writeable : false })
 
-contentTextTypePropsModel.push([ 'keyContributors', 'contributors']
+contentTextTypePropsModel.push([ 'keyContributors', 'contributors' ]
   .map((propName) => ({ propName, model : Contributor, valueType : arrayType, writable : true })))
 
 const ContentTypeText = class extends Model {
