@@ -1,4 +1,4 @@
-CREATE TABLE content (
+CREATE TABLE content_summary (
   `id` INT,
   `title` VARCHAR(255) NOT NULL,
   `summary` TEXT,
@@ -7,12 +7,12 @@ CREATE TABLE content (
   `slug` VARCHAR(40),
   `type` ENUM('TEXT') NOT NULL,
   `version_cookie` VARCHAR(255),
-  CONSTRAINT `content_key` PRIMARY KEY ( `id` ),
-  CONSTRAINT `content_ref_entities` FOREIGN KEY ( `id` ) REFERENCES `entities` ( `id` )
+  CONSTRAINT `content_summary_key` PRIMARY KEY ( `id` ),
+  CONSTRAINT `content_summary_ref_entities` FOREIGN KEY ( `id` ) REFERENCES `entities` ( `id` )
 );
 
 DELIMITER //
-CREATE TRIGGER `content_slug_constraint`
+CREATE TRIGGER `content_summary_slug_constraint`
   BEFORE INSERT ON content FOR EACH ROW
     BEGIN
       IF new.slug REGEXP '[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}'
@@ -20,7 +20,7 @@ CREATE TRIGGER `content_slug_constraint`
           SET MESSAGE_TEXT = 'Cannot use slug which may be confused with a UUID.';
       END IF;
     END;//
-CREATE TRIGGER `content_type_constraint`
+CREATE TRIGGER `content_summary_type_constraint`
   BEFORE UPDATE ON content FOR EACH ROW
     BEGIN
       IF new.type != old.type

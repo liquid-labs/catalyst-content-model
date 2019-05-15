@@ -30,20 +30,34 @@ type ContributorSummary struct {
 
 type ContributorSummaries []*ContributorSummary
 
-func (c *ContributorSummary) SetRole(val string) {
-  c.Role = nulls.NewString(val)
+func (c *ContributorSummary) GetRole() nulls.String { return c.Role }
+func (c *ContributorSummary) SetRole(r nulls.String) { c.Role = r }
+
+func (c *ContributorSummary) GetSummaryCreditORder() nulls.Int64 {
+  return c.SummaryCreditOrder
+}
+func (c *ContributorSummary) SetSummaryCreditOrder(i nulls.Int64) {
+  c.SummaryCreditOrder = i
 }
 
-func (c *ContributorSummary) ClearRole() {
-  c.Role = nulls.NewNullString()
-}
+// Content is an abstract type interface.
+type Content interface {
+  entities.EntityIface
 
-func (c *ContributorSummary) SetSummaryCreditOrder(val int64) {
-  c.SummaryCreditOrder = nulls.NewInt64(val)
-}
+  GetTitle() nulls.String
+  SetTitle(nulls.String)
 
-func (c *ContributorSummary) ClearSummaryCreditOrder() {
-  c.SummaryCreditOrder = nulls.NewNullInt64()
+  GetSummary() nulls.String
+  SetSummary(nulls.String)
+
+  GetNamespace() nulls.String
+  SetNamespace(nulls.String)
+
+  GetSlug() nulls.String
+  SetSlug(nulls.String)
+
+  GetType() nulls.String
+  SetType(nulls.String) error
 }
 
 type ContentSummary struct {
@@ -61,43 +75,24 @@ type ContentSummary struct {
   Contributors ContributorSummaries `json:contributors`
 }
 
-func (c *ContentSummary) SetTitle(val string) {
-  c.Title = nulls.NewString(val)
-}
+func (c *ContentSummary) GetTitle() nulls.String { return c.Title }
+func (c *ContentSummary) SetTitle(t nulls.String) { c.Title = t }
 
-func (c *ContentSummary) ClearTitle() {
-  c.Title = nulls.NewNullString()
-}
+func (c *ContentSummary) GetSummary() nulls.String { return c.Summary }
+func (c *ContentSummary) SetSummary(s nulls.String) { c.Summary = s }
 
-func (c *ContentSummary) SetSummary(val string) {
-  c.Summary = nulls.NewString(val)
-}
+func (c *ContentSummary) GetNamespace() nulls.String { return c.Namespace }
+func (c *ContentSummary) SetNamespace(n nulls.String) { c.Namespace = n }
 
-func (c *ContentSummary) ClearSummary() {
-  c.Summary = nulls.NewNullString()
-}
+func (c *ContentSummary) GetSlug() nulls.String { return c.Slug }
+func (c *ContentSummary) SetSlug(s nulls.String) { c.Slug = s }
 
-func (c *ContentSummary) SetNamespace(val string) {
-  c.Namespace = nulls.NewString(val)
-}
-
-func (c *ContentSummary) ClearNamespace() {
-  c.Namespace = nulls.NewNullString()
-}
-
-func (c *ContentSummary) SetSlug(val string) {
-  c.Slug = nulls.NewString(val)
-}
-
-func (c *ContentSummary) ClearSlug() {
-  c.Slug = nulls.NewNullString()
-}
-
-func (c *ContentSummary) SetType(val string) error {
+func (c *ContentSummary) GetType() nulls.String { return c.Type }
+func (c *ContentSummary) SetType(t nulls.String) error {
   if c.PubId.IsValid() {
     return errors.New("Cannot change 'type' after creation.")
   } else {
-    c.Type = nulls.NewString(val)
+    c.Type = t
     return nil
   }
 }
@@ -109,18 +104,8 @@ type ContentTypeText struct {
   // Contributors  ContributorSummaries `json:contributors`,
 }
 
-func (c *ContentTypeText) SetFormat(val string) {
-  c.Format = nulls.NewString(val)
-}
+func (c *ContentTypeText) GetFormat() nulls.String { return c.Format }
+func (c *ContentTypeText) SetFormat(f nulls.String) { c.Format = f }
 
-func (c *ContentTypeText) ClearFormat() {
-  c.Format = nulls.NewNullString()
-}
-
-func (c *ContentTypeText) SetText(val string) {
-  c.Text = nulls.NewString(val)
-}
-
-func (c *ContentTypeText) ClearText() {
-  c.Text = nulls.NewNullString()
-}
+func (c *ContentTypeText) GetText() nulls.String { return c.Text }
+func (c *ContentTypeText) SetText(t nulls.String) { c.Text = t }

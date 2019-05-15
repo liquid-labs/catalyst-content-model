@@ -9,4 +9,6 @@ require (
 
 replace github.com/Liquid-Labs/go-rest => /Users/zane/playground/go-rest
 
+replace github.com/Liquid-Labs/catalyst-core-api => /Users/zane/playground/catalyst-core-api
+
 replace github.com/Liquid-Labs/catalyst-persons-api => /Users/zane/playground/catalyst-persons-api
