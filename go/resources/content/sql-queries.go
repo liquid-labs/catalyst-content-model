@@ -10,7 +10,7 @@ const CommonCententTypeTextFields = `ctt.format, ctt.text, c.extern_path, c.last
 const CommonContentContribFields = `p.pub_id, p.display_name, pc.role, pc.summary_credit_order `
 const CommonContentFrom = `FROM content_summary c JOIN contributors pc ON c.id=pc.content JOIN persons p ON cp.id=p.id `
 const CommonContentTypeTextFields = CommonContentFields + `, ctt.format, ctt.text `
-const CommonContentTypeTextFrom = `JOIN ctt content_type_text ON c.id=ctt.id `
+const CommonContentTypeTextFrom = `JOIN content_type_text ctt ON c.id=ctt.id `
 const CommonContentTypeTextGet string = `SELECT ` + CommonContentTypeTextFields + CommonContentFrom + CommonContentTypeTextFrom
 //  - queries - partials
 const GetContentTypeTextQuery string = CommonContentTypeTextGet + `WHERE e.pub_id=? `
