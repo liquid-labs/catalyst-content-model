@@ -8,7 +8,7 @@ const CreateContentTypeTextQuery = `INSERT INTO content_type_text (id, format, t
 const CommonContentFields = `e.pub_id, e.last_updated, c.title, c.summary, c.namespace, c.slug, c.type `
 const CommonCententTypeTextFields = `ctt.format, ctt.text, c.extern_path, c.last_sync, c.version_cookie `
 const CommonContentContribFields = `p.pub_id, p.display_name, pc.role, pc.summary_credit_order `
-const CommonContentFrom = `FROM content_summary c JOIN contributors pc ON c.id=pc.content JOIN persons p ON cp.id=p.id `
+const CommonContentFrom = `FROM entity e JOIN content_summary c ON e.id=p.id JOIN contributors pc ON c.id=pc.content JOIN persons p ON cp.id=p.id `
 const CommonContentTypeTextFields = CommonContentFields + `, ctt.format, ctt.text `
 const CommonContentTypeTextFrom = `JOIN content_type_text ctt ON c.id=ctt.id `
 const CommonContentTypeTextGet string = `SELECT ` + CommonContentTypeTextFields + CommonContentFrom + CommonContentTypeTextFrom
@@ -23,6 +23,6 @@ const UpdateContentTypeTextOnlyTextQuery = `UPDATE content_summary c JOIN conten
 
 // Contributors
 // update by refresh only
-const ContributorsDeleteQuery = `DELETE * FROM contributors WHERE content=?`
-const ContributorInsertQuery = `INSERT INTO contributors (id, content, role, summary_credit_order) SELECT persons.id, content.id, ?, ? FROM persons p JOIN content_summary c ON p.pub_id=? AND c.pub_id=?`
-const ContributorInsertWithContentIDQuery = `INSERT INTO contributors (id, content, role, summary_credit_order) SELECT persons.id, ?, ?, ? FROM persons p WHERE p.pub_id=?`
+const ContributorsDeleteQuery = `DELETE FROM contributors WHERE content=?`
+const ContributorInsertQuery = `INSERT INTO contributors (id, content, role, summary_credit_order) SELECT p.id, c.id, ?, ? FROM persons p JOIN content_summary c ON p.pub_id=? AND c.pub_id=?`
+const ContributorInsertWithContentIDQuery = `INSERT INTO contributors (id, content, role, summary_credit_order) SELECT p.id, ?, ?, ? FROM persons p WHERE p.pub_id=?`
