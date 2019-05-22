@@ -43,7 +43,16 @@ const contentResourceConf = new CommonResourceConf('content', {
   sortDefault : 'title-asc'
 }, { resourceName : 'content' })
 
-contentResourceConf.urlMapper = (source) => `${source}?namespace=liquid-labs.com`
+contentResourceConf.urlMapper = (source) => {
+  // TODO: keep current namespace if present.
+  const key = `REACT_APP_CONTENT_NAMESPACE`
+  const namespace = process.env[key]
+  console.log(process.env)
+  if (namespace === undefined) {
+    throw new Error(`No '${key}' found. Try in '.env' and rebuilding application.`)
+  }
+  return `${source}?namespace=${encodeURIComponent(namespace)}`
+}
 
 export {
   contributorPropsModel,
