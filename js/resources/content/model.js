@@ -43,6 +43,8 @@ const contentResourceConf = new CommonResourceConf('content', {
   sortDefault : 'title-asc'
 }, { resourceName : 'content' })
 
+contentResourceConf.urlMapper = (source) => `${source}?namespace=liquid-labs.com`
+
 export {
   contributorPropsModel,
   Contributor,
