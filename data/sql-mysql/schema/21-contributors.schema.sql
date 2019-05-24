@@ -4,8 +4,8 @@ CREATE TABLE contributors (
   `role` VARCHAR(64),
   `summary_credit_order` TINYINT UNSIGNED,
   CONSTRAINT `contributors_key` PRIMARY KEY ( `id`, `content` ),
-  CONSTRAINT `contributors_ref_persons` FOREIGN KEY ( `id` ) REFERENCES `persons` ( `id` ),
-  CONSTRAINT `contributors_ref_content` FOREIGN KEY ( `content` ) REFERENCES `content_summary` ( `id` )
+  CONSTRAINT `contributors_refs_persons` FOREIGN KEY ( `id` ) REFERENCES `persons` ( `id` ),
+  CONSTRAINT `contributors_refs_content` FOREIGN KEY ( `content` ) REFERENCES `content_summary` ( `id` )
 );
 
 DELIMITER //
@@ -24,5 +24,5 @@ CREATE TRIGGER `contributors_update_disallowed`
   BEFORE UPDATE ON contributors FOR EACH ROW
     SIGNAL SQLSTATE '45000'
       SET MESSAGE_TEXT = 'Invalid update; current model expects contributors to be cleared and refreshed.';//
-      
+
 DELIMITER ;
